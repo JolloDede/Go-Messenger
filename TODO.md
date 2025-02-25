@@ -1,3 +1,5 @@
 # Todo
 
-- [ ] 
+- [ ] Userinterface
+- [ ] Backend
+- [ ] Websocket
