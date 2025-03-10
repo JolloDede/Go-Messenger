@@ -5,3 +5,5 @@ app_data.db
 **/*_templ.go
 
 node_modules
+
+static/css/tailwind.css
