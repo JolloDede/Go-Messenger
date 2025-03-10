@@ -5,6 +5,8 @@ import (
 )
 
 func Setup(app *fiber.App) {
+	app.Static("/", "./static")
+
 	app.Get("/", HandleHome)
 }
 
@@ -17,5 +19,5 @@ func HandleHome(c *fiber.Ctx) error {
 
 	return c.Render("index", fiber.Map{
 		"Title": "Go Fiubert Template",
-	})
+	}, "main")
 }
