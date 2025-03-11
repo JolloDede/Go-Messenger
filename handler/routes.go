@@ -1,23 +1,36 @@
 package handler
 
 import (
+	"fmt"
+
 	"github.com/gofiber/fiber/v2"
 )
 
 func Setup(app *fiber.App) {
 	app.Static("/", "./static")
 
-	app.Get("/", HandleHome)
+	app.Get("/home", HandleHome)
+	app.All("/auth/register", handleRegister)
 }
 
 func HandleHome(c *fiber.Ctx) error {
-
-	// home := views.HomeIndex(false)
-	// handler := adaptor.HTTPHandler(templ.Handler(home))
-
-	// return handler(c)
-
 	return c.Render("index", fiber.Map{
 		"Title": "Go Fiubert Template",
 	}, "main")
+}
+
+type User struct {
+	Id       int
+	Username string
+	password string
+}
+
+func handleRegister(c *fiber.Ctx) error {
+	if c.Method() == fiber.MethodPost {
+		uname := c.FormValue("uname")
+		fmt.Println(uname)
+		return c.Redirect("/home")
+	}
+
+	return c.Render("register", fiber.Map{}, "main")
 }
