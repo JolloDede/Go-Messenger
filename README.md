@@ -7,3 +7,13 @@
   - Websocket
 - Htmx
   - Templating
+
+## run
+
+```bash
+npm run watch
+```
+
+```bash
+air
+```
