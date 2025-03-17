@@ -3,9 +3,7 @@ package cmd
 import (
 	"encoding/csv"
 	"fmt"
-	"io"
 	"os"
-	"slices"
 	"strings"
 )
 
@@ -16,23 +14,29 @@ type User struct {
 }
 
 func KeyIsValid(key string) bool {
-	f, err := os.Open("tmp/keys.txt")
+	kfn := "tmp/keys.txt"
+	c := GetFileContents(kfn)
+	i := 0
 
-	if err != nil {
-		fmt.Println(err)
-		return false
+	fmt.Println(c)
+
+	for {
+		if i >= len(c) {
+			return false
+		}
+		if c[i] == key {
+			c = append(c[:i], c[i+1:]...)
+			break
+		}
+
+		i++
 	}
-	defer f.Close()
 
-	c, err := io.ReadAll(f)
+	s := strings.Join(c, "\n")
 
-	if err != nil {
-		return false
-	}
+	err := os.WriteFile(kfn, []byte(s), 0644)
 
-	keys := strings.Split(string(c), "\n")
-
-	return slices.Contains(keys, key)
+	return err == nil
 }
 
 func SaveUser(u *User) error {
