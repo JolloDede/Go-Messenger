@@ -4,7 +4,7 @@
   - [ ] Auth
     - [ ] Register
       - [X] UI
-      - [ ] Logic
+      - [X] Logic
     - [ ] Login
 - [ ] Backend
 - [ ] Websocket
